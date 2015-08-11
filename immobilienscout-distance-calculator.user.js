@@ -3,6 +3,7 @@
 // @namespace    http://your.homepage/
 // @version      0.1
 // @description  enter something useful
+// @updateURL    https://github.com/sebauer/immobilienscout-distance-calculator/raw/master/immobilienscout-distance-calculator.user.js
 // @author       Sebastian Bauer
 // @match        http://www.immobilienscout24.de/Suche/*
 // @match        http://www.immobilienscout24.de/expose/*
