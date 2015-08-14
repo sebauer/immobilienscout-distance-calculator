@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImmobilienScout24 Distance Calculator
-// @namespace    http://your.homepage/
-// @version      0.1
+// @namespace    https://github.com/sebauer/immobilienscout-distance-calculator
+// @version      0.2
 // @description  enter something useful
 // @updateURL    https://github.com/sebauer/immobilienscout-distance-calculator/raw/master/immobilienscout-distance-calculator.user.js
 // @author       Sebastian Bauer
