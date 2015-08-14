@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImmobilienScout24 Distance Calculator
 // @namespace    https://github.com/sebauer/immobilienscout-distance-calculator
-// @version      0.2
+// @version      0.2.1
 // @description  enter something useful
 // @updateURL    https://github.com/sebauer/immobilienscout-distance-calculator/raw/master/immobilienscout-distance-calculator.user.js
 // @author       Sebastian Bauer
@@ -34,6 +34,7 @@ function calculateGoogleMapsRoutes (elem) {
 
   sendMapsRequest('Köln', destination, routesDiv);
   sendMapsRequest('Bonn', destination, routesDiv);
+  sendMapsRequest('Nürburgring', destination, routesDiv);
 }
 
 function addRouteButton (elem, destination) {
