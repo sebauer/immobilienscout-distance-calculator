@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImmobilienScout24 Distance Calculator
 // @namespace    https://github.com/sebauer/immobilienscout-distance-calculator
-// @version      0.2.1
+// @version      0.3.1
 // @description  enter something useful
 // @updateURL    https://github.com/sebauer/immobilienscout-distance-calculator/raw/master/immobilienscout-distance-calculator.user.js
 // @author       Sebastian Bauer
@@ -17,9 +17,14 @@ function sendMapsRequest (origin, destination, targetElem) {
     onload: function (res) {
       console.log(res);
       var resObj = JSON.parse(res.responseText);
-      var resultRow = document.createElement('div');
-      resultRow.innerHTML = origin + ': ' + resObj.routes[0].legs[0].distance.text + ' / ' + resObj.routes[0].legs[0].duration.text;
-      targetElem.appendChild(resultRow);
+
+      if (resObj.status !== 'NOT_FOUND') {
+        var resultRow = document.createElement('div');
+        resultRow.innerHTML = origin + ': ' + resObj.routes[0].legs[0].distance.text + ' / ' + resObj.routes[0].legs[0].duration.text;
+        targetElem.appendChild(resultRow);
+      } else {
+        console.log('Target not found');
+      }
     }
   });
 }
@@ -53,6 +58,13 @@ function getResultElements () {
   return document.evaluate("/html/body//span[contains(@class, 'street')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
 }
 
+function filterAddressString (address) {
+  console.log(address);
+  var newAddress = address.replace(/^[^\|]+\| /, '');
+  console.log(newAddress);
+  return newAddress;
+}
+
 window.addEventListener('load', function () {
   console.log('run');
   var resultSet = getResultElements();
@@ -60,13 +72,13 @@ window.addEventListener('load', function () {
   var currentResult = null;
   for (var i = 0; i < resultSet.snapshotLength; i++) {
     currentResult = resultSet.snapshotItem(i);
-    addRouteButton(currentResult, currentResult.innerHTML);
+    addRouteButton(currentResult, filterAddressString(currentResult.innerHTML));
   }
 
   // is24-expose-address
   var addressElemOnExpose = document.evaluate("/html/body//span[@data-qa='is24-expose-address']", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
   if (addressElemOnExpose.snapshotLength > 0) {
-    addRouteButton(addressElemOnExpose.snapshotItem(0), addressElemOnExpose.snapshotItem(0).textContent);
+    addRouteButton(addressElemOnExpose.snapshotItem(0), filterAddressString(addressElemOnExpose.snapshotItem(0).textContent));
   }
 
   console.log('done');
